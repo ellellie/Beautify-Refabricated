@@ -176,21 +176,4 @@ public class LampCandelabra extends LanternBlock {
 			return false;
 		}
 	}
-
-	@Override
-	public void appendHoverText(ItemStack stack, Item.TooltipContext tooltipContext, List<Component> component, TooltipFlag flag) {
-		if (!Screen.hasShiftDown()) {
-			component.add(Component.translatable("tooltip.beautify.shift").withStyle(ChatFormatting.YELLOW));
-		}
-
-		if (Screen.hasShiftDown()) {
-			component.add(Component.translatable("tooltip.beautify.candelabra.1")
-					.withStyle(ChatFormatting.GRAY));
-			component.add(Component.translatable("tooltip.beautify.candelabra.2")
-					.withStyle(ChatFormatting.GRAY));
-			component.add(Component.translatable("tooltip.beautify.candelabra.3")
-					.withStyle(ChatFormatting.GRAY));
-		}
-		super.appendHoverText(stack, tooltipContext, component, flag);
-	}
 }

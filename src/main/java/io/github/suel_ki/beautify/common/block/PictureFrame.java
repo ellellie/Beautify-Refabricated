@@ -90,19 +90,4 @@ public class PictureFrame extends HorizontalDirectionalBlock {
 		super.createBlockStateDefinition(builder);
 		builder.add(FRAME_MOTIVE, FACING);
 	}
-
-	@Override
-	public void appendHoverText(ItemStack stack, Item.TooltipContext tooltipContext, List<Component> component, TooltipFlag flag) {
-		if (!Screen.hasShiftDown()) {
-			component.add(Component.translatable("tooltip.beautify.shift").withStyle(ChatFormatting.YELLOW));
-		}
-
-		if (Screen.hasShiftDown()) {
-			component.add(Component.translatable("tooltip.beautify.picture_frame.1")
-					.withStyle(ChatFormatting.GRAY));
-			component.add(Component.translatable("tooltip.beautify.picture_frame.2")
-					.withStyle(ChatFormatting.GRAY));
-		}
-		super.appendHoverText(stack, tooltipContext, component, flag);
-	}
 }

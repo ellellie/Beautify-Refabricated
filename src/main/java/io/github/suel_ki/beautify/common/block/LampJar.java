@@ -108,18 +108,4 @@ public class LampJar extends LanternBlock {
 	private static double randomDir(RandomSource rand) {
 		return (rand.nextIntBetweenInclusive(0, 2) - 1) * rand.nextFloat() / 34;
 	}
-
-	@Override
-	public void appendHoverText(ItemStack stack, Item.TooltipContext tooltipContext, List<Component> component, TooltipFlag flag) {
-		if (!Screen.hasShiftDown()) {
-			component.add(Component.translatable("tooltip.beautify.shift").withStyle(ChatFormatting.YELLOW));
-		}
-
-		if (Screen.hasShiftDown()) {
-			component.add(Component.translatable("tooltip.beautify.lamp_jar.1").withStyle(ChatFormatting.GRAY));
-			component.add(Component.translatable("tooltip.beautify.lamp_jar.2").withStyle(ChatFormatting.GRAY));
-			component.add(Component.translatable("tooltip.beautify.lamp_jar.3").withStyle(ChatFormatting.GRAY));
-		}
-		super.appendHoverText(stack, tooltipContext, component, flag);
-	}
 }

@@ -2,6 +2,7 @@ package io.github.suel_ki.beautify;
 
 import io.github.suel_ki.beautify.core.init.BlockInit;
 import io.github.suel_ki.beautify.core.init.ItemInit;
+import io.github.suel_ki.beautify.core.init.VillagerInit;
 import io.github.suel_ki.beautify.core.init.TradesInit;
 import io.github.suel_ki.beautify.particle.ParticleInit;
 import io.github.suel_ki.beautify.util.BeautifyConfig;
@@ -53,8 +54,11 @@ public class Beautify implements ModInitializer {
 		CONFIG = AutoConfig.getConfigHolder(BeautifyConfig.class).getConfig();
 		// Fuel
 		ItemInit.registerFuel();
+        ItemInit.registerTooltips();
 		// Trades
 		TradesInit.addCustomTrades();
+        // Villagers
+        VillagerInit.registerProfessions();
 		// Flammable
 		BlockInit.registerFlammableBlock();
 		ParticleInit.ensureLoadedServerside();

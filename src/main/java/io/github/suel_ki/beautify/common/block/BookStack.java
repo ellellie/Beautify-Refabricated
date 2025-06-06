@@ -108,7 +108,7 @@ public class BookStack extends HorizontalDirectionalBlock {
 	}
 
 	@Override
-	public void fallOn(Level level, BlockState state, BlockPos pos, Entity entity, float fallDistance) {
+	public void fallOn(Level level, BlockState state, BlockPos pos, Entity entity, double fallDistance) {
 		level.playSound(null, pos, SoundInit.BOOKSTACK_FALL, SoundSource.BLOCKS, 1, 1);
 		super.fallOn(level, state, pos, entity, fallDistance);
 	}
@@ -127,20 +127,5 @@ public class BookStack extends HorizontalDirectionalBlock {
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
 		super.createBlockStateDefinition(builder);
 		builder.add(BOOKSTACK_MODEL, FACING);
-	}
-
-	@Override
-	public void appendHoverText(ItemStack stack, Item.TooltipContext tooltipContext, List<Component> component, TooltipFlag flag) {
-		if (!Screen.hasShiftDown()) {
-			component.add(Component.translatable("tooltip.beautify.shift").withStyle(ChatFormatting.YELLOW));
-		}
-
-		if (Screen.hasShiftDown()) {
-			component.add(Component.translatable("tooltip.beautify.bookstack.1")
-					.withStyle(ChatFormatting.GRAY));
-			component.add(Component.translatable("tooltip.beautify.bookstack.2")
-					.withStyle(ChatFormatting.GRAY));
-		}
-		super.appendHoverText(stack, tooltipContext, component, flag);
 	}
 }

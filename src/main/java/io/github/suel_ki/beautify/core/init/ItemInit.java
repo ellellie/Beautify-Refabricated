@@ -4,11 +4,15 @@ import io.github.suel_ki.beautify.Beautify;
 import io.github.suel_ki.beautify.common.block.HangingPot;
 import io.github.suel_ki.beautify.common.block.Trellis;
 import io.github.suel_ki.beautify.common.tooltip.PlantableItemStackTooltip;
+import java.util.function.Supplier;
+import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
 import net.fabricmc.fabric.api.registry.FuelRegistryEvents;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.tooltip.TooltipComponent;
@@ -227,4 +231,86 @@ public final class ItemInit {
 			builder.add(ROPE_ITEM, 100);
 		});
 	}
+
+    private static List<Component> getTooltipLines(ResourceLocation id, int expandedLength) {
+        List<Component> lines = new ArrayList<>();
+        for (int i = 1; i <= expandedLength; i++) {
+            lines.add(Component.translatable("tooltip.beautify." + id.getPath() + "." + i).withStyle(ChatFormatting.GRAY));
+        }
+        return lines;
+    }
+
+    private static void addExpandedTooltip(Supplier<Boolean> condition, Component shortened, List<Component> expanded, Item... items) {
+        ItemTooltipCallback.EVENT.register((itemStack, tooltipContext, tooltipFlag, list) -> {
+            if(!Arrays.asList(items).contains(itemStack.getItem())) return;
+
+            if(!condition.get()) list.add(shortened);
+            else list.addAll(expanded);
+        });
+    }
+
+    public static void registerTooltips() {
+        addExpandedTooltip(Screen::hasShiftDown, Component.translatable("tooltip.beautify.shift").withStyle(ChatFormatting.YELLOW),
+            getTooltipLines(Beautify.id("blinds"), 2),
+            OAK_BLINDS_ITEM, SPRUCE_BLINDS_ITEM, BIRCH_BLINDS_ITEM, JUNGLE_BLINDS_ITEM, ACACIA_BLINDS_ITEM, DARK_OAK_BLINDS_ITEM, MANGROVE_BLINDS_ITEM, CRIMSON_BLINDS_ITEM, CHERRY_BLINDS_ITEM, WARPED_BLINDS_ITEM, IRON_BLINDS_ITEM
+        );
+
+        addExpandedTooltip(Screen::hasShiftDown, Component.translatable("tooltip.beautify.shift").withStyle(ChatFormatting.YELLOW),
+            getTooltipLines(Beautify.id("bookstack"), 2),
+            BOOKSTACK_ITEM
+        );
+
+        addExpandedTooltip(Screen::hasShiftDown, Component.translatable("tooltip.beautify.shift").withStyle(ChatFormatting.YELLOW),
+            getTooltipLines(Beautify.id("botanist_workbench"), 1),
+            BOTANIST_WORKBENCH_ITEM
+        );
+
+        addExpandedTooltip(Screen::hasShiftDown, Component.translatable("tooltip.beautify.shift").withStyle(ChatFormatting.YELLOW),
+            getTooltipLines(Beautify.id("hanging_pot"), 3),
+            HANGING_POT_ITEM
+        );
+
+        addExpandedTooltip(Screen::hasShiftDown, Component.translatable("tooltip.beautify.shift").withStyle(ChatFormatting.YELLOW),
+            getTooltipLines(Beautify.id("lamp"), 2),
+            LAMP_BAMBOO_ITEM, LAMP_LIGHT_BULB_ITEM
+        );
+
+        addExpandedTooltip(Screen::hasShiftDown, Component.translatable("tooltip.beautify.shift").withStyle(ChatFormatting.YELLOW),
+            getTooltipLines(Beautify.id("candelabra"), 3),
+            LAMP_CANDELABRA_ITEM, LAMP_CANDELABRA_LIGHT_BLUE_ITEM, LAMP_CANDELABRA_LIGHT_GRAY_ITEM, LAMP_CANDELABRA_BLACK_ITEM,
+            LAMP_CANDELABRA_BLUE_ITEM, LAMP_CANDELABRA_BROWN_ITEM, LAMP_CANDELABRA_CYAN_ITEM, LAMP_CANDELABRA_GRAY_ITEM,
+            LAMP_CANDELABRA_GREEN_ITEM, LAMP_CANDELABRA_LIME_ITEM, LAMP_CANDELABRA_MAGENTA_ITEM, LAMP_CANDELABRA_ORANGE_ITEM,
+            LAMP_CANDELABRA_PINK_ITEM, LAMP_CANDELABRA_PURPLE_ITEM, LAMP_CANDELABRA_RED_ITEM, LAMP_CANDELABRA_WHITE_ITEM,
+            LAMP_CANDELABRA_YELLOW_ITEM
+        );
+
+        addExpandedTooltip(Screen::hasShiftDown, Component.translatable("tooltip.beautify.shift").withStyle(ChatFormatting.YELLOW),
+            getTooltipLines(Beautify.id("lamp_jar"), 3),
+            LAMP_JAR_ITEM
+        );
+
+        addExpandedTooltip(Screen::hasShiftDown, Component.translatable("tooltip.beautify.shift").withStyle(ChatFormatting.YELLOW),
+            getTooltipLines(Beautify.id("picture_frame"), 2),
+            OAK_PICTURE_FRAME_ITEM, SPRUCE_PICTURE_FRAME_ITEM, BIRCH_PICTURE_FRAME_ITEM, JUNGLE_PICTURE_FRAME_ITEM,
+            ACACIA_PICTURE_FRAME_ITEM, DARK_OAK_PICTURE_FRAME_ITEM, MANGROVE_PICTURE_FRAME_ITEM, CRIMSON_PICTURE_FRAME_ITEM,
+            CHERRY_PICTURE_FRAME_ITEM, WARPED_PICTURE_FRAME_ITEM, QUARTZ_PICTURE_FRAME_ITEM
+        );
+
+        addExpandedTooltip(Screen::hasShiftDown, Component.translatable("tooltip.beautify.shift").withStyle(ChatFormatting.YELLOW),
+            getTooltipLines(Beautify.id("rope"), 2),
+            ROPE_ITEM
+        );
+
+        addExpandedTooltip(Screen::hasShiftDown, Component.translatable("tooltip.beautify.shift").withStyle(ChatFormatting.YELLOW),
+            getTooltipLines(Beautify.id("trellis"), 2),
+            OAK_TRELLIS_ITEM, SPRUCE_TRELLIS_ITEM, BIRCH_TRELLIS_ITEM, JUNGLE_TRELLIS_ITEM, ACACIA_TRELLIS_ITEM,
+            DARK_OAK_TRELLIS_ITEM, MANGROVE_TRELLIS_ITEM, CRIMSON_TRELLIS_ITEM, CHERRY_TRELLIS_ITEM, WARPED_TRELLIS_ITEM
+        );
+
+        addExpandedTooltip(Screen::hasControlDown, Component.translatable("tooltip.beautify.plantlist").withStyle(ChatFormatting.YELLOW),
+            List.of(),
+            OAK_TRELLIS_ITEM, SPRUCE_TRELLIS_ITEM, BIRCH_TRELLIS_ITEM, JUNGLE_TRELLIS_ITEM, ACACIA_TRELLIS_ITEM,
+            DARK_OAK_TRELLIS_ITEM, MANGROVE_TRELLIS_ITEM, CRIMSON_TRELLIS_ITEM, CHERRY_TRELLIS_ITEM, WARPED_TRELLIS_ITEM
+        );
+    }
 }

@@ -182,22 +182,4 @@ public class HangingPot extends LanternBlock {
 		super.createBlockStateDefinition(pBuilder);
 		pBuilder.add(POTFLOWER, GROWN);
 	}
-
-	@Override
-	public void appendHoverText(ItemStack stack, Item.TooltipContext tooltipContext, List<Component> component, TooltipFlag flag) {
-		if (!Screen.hasShiftDown() && !Screen.hasControlDown()) {
-			component.add(Component.translatable("tooltip.beautify.shift").withStyle(ChatFormatting.YELLOW));
-			component.add(Component.translatable("tooltip.beautify.plantlist").withStyle(ChatFormatting.YELLOW));
-		}
-
-		if (Screen.hasShiftDown()) {
-			component.add(Component.translatable("tooltip.beautify.hanging_pot.1")
-					.withStyle(ChatFormatting.GRAY));
-			component.add(Component.translatable("tooltip.beautify.hanging_pot.2").
-					withStyle(ChatFormatting.GRAY));
-			component.add(Component.translatable("tooltip.beautify.hanging_pot.3")
-					.withStyle(ChatFormatting.GRAY));
-		}
-		super.appendHoverText(stack, tooltipContext, component, flag);
-	}
 }

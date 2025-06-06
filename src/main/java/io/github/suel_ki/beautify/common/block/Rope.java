@@ -23,17 +23,4 @@ public class Rope extends ChainBlock {
 	public PushReaction getPistonPushReaction(BlockState blockState) {
 		return PushReaction.DESTROY;
 	}
-
-	@Override
-	public void appendHoverText(ItemStack stack, Item.TooltipContext tooltipContext, List<Component> component, TooltipFlag flag) {
-		if (!Screen.hasShiftDown()) {
-			component.add(Component.translatable("tooltip.beautify.shift").withStyle(ChatFormatting.YELLOW));
-		}
-
-		if (Screen.hasShiftDown()) {
-			component.add(Component.translatable("tooltip.beautify.rope.1").withStyle(ChatFormatting.GRAY));
-			component.add(Component.translatable("tooltip.beautify.rope.2").withStyle(ChatFormatting.GRAY));
-		}
-		super.appendHoverText(stack, tooltipContext, component, flag);
-	}
 }
